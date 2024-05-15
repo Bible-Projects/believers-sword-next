@@ -29,8 +29,9 @@
 }
 
 * {
-    scrollbar-width: thin;
     scroll-behavior: smooth;
+    scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    scrollbar-width: thin;
 }
 
 .s-loading {
@@ -39,6 +40,8 @@
 
 .overflowing-div {
     &:hover {
+        scrollbar-color: var(--primary-color) rgba(0, 0, 0, 0);
+
         &::-webkit-scrollbar-thumb {
             background-color: var(--primary-color);
             opacity: 1;
@@ -52,6 +55,7 @@
 
 .scroll-bar-md,
 .scroll-bar-sm {
+
     &::-webkit-scrollbar-thumb {
         border-radius: 5px;
         margin: 10px;
@@ -59,6 +63,7 @@
 }
 
 .scroll-bar-sm {
+    
     &::-webkit-scrollbar {
         width: 3px !important;
         height: 3px !important;
