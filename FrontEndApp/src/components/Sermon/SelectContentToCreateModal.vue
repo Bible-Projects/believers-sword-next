@@ -59,10 +59,10 @@ defineExpose({
                     </div>
                 </div>
                 <div
-                    class="flex justify-center items-center flex-col text-center gap-1 group dark:hover:bg-gray-6 cursor-pointer rounded-md p-2 w-full">
+                    class="flex justify-center items-center flex-col text-center gap-1 group dark:hover:bg-gray-6 rounded-md p-2 w-full opacity-50 cursor-default">
                     <Icon icon="healthicons:group-discussion-meetingx3"
                         class="text-size-40px group-hover:text-amber-5" />
-                    <h3 class="m-0 leading-tight group-hover:underline">Discussion</h3>
+                    <h3 class="m-0 leading-tight">Discussion (Coming Soon)</h3>
                     <p class="m-0 leading-tight"> Submit a discussion, so that you and others can have a reply based
                         discussion.</p>
                 </div>

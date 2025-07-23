@@ -4,7 +4,7 @@ import axios from 'axios';
 import { supabase } from '../../util/SupaBase/SupaBase';
 import { useMenuStore } from '../../store/menu';
 import Editor from '../../components/Editor/Editor.vue';
-import { NButton, NIcon, NInput, NSelect } from 'naive-ui';
+import { NButton, NCheckbox, NIcon, NInput, NSelect } from 'naive-ui';
 import { DAYJS } from '../../util/dayjs';
 import { useUserStore } from '../../store/userStore';
 import { useRouter } from 'vue-router';
@@ -57,7 +57,6 @@ const denominationOptions = [
     { label: 'Methodist' },
     { label: 'Nazarene' },
     { label: 'Orthodox' },
-    { label: 'Other' },
     { label: 'Pentecostal' },
     { label: 'Presbyterian/Reformed' },
     { label: 'Salvation Army' },
@@ -207,26 +206,24 @@ function resetForm() {
             </NButton>
         </div>
         <div class="w-full mx-auto h-[100%] overflow-auto overflowing-div">
-            <div class="w-full max-w-700px mx-auto">
+            <div class="w-full max-w-800px mx-auto">
                 <div>
                     <h2 class="font-thin text-size-23px mb-0 font-800">Submit Sermon</h2>
                     <div>Submit your sermon here so that other people can also watch or listen to your sermon.</div>
                 </div>
                 <div class="mt-10 flex flex-col gap-5">
-                    <div v-if="selectedType == 'text'">
-                        <label for="">Title:</label><br />
-                        <NInput v-model:value="title" placeholder="enter title" required type="text" />
+                    <div>
+                        <label for="">Title</label><br />
+                        <NInput v-model:value="title" placeholder="ex. For God so Loved The World" required
+                            type="text" />
                     </div>
-                    <div v-if="selectedType == 'text'">
-                        <label for="">Scripture:</label><br />
-                        <NInput v-model:value="scripture" placeholder="enter scripture" required type="text" />
+                    <div>
+                        <label for="">Scripture</label><br />
+                        <NInput v-model:value="scripture" placeholder="ex. John 3:16-18, 1 John 3:16-18" required
+                            type="text" />
                     </div>
-                    <div v-if="selectedType == 'text'">
-                        <label for="">Content Author:</label><br />
-                        <NInput v-model:value="author" placeholder="enter scripture" required type="text" />
-                    </div>
-                    <div v-if="selectedType == 'text'">
-                        <label for="">Select Denomination:</label><br />
+                    <div>
+                        <label for="">Select Denomination (OPTIONAL)</label><br />
                         <select v-model="denomination"
                             class="p-2 rounded-md !dark:bg-dark-300 dark:text-gray-200 outline-none w-full" required>
                             <option :value="null">-- Select Denomination --</option>
@@ -235,19 +232,28 @@ function resetForm() {
                             </option>
                         </select>
                     </div>
-                    <div v-if="selectedType == 'text'">
-                        <label for="">A Short Summary/Description:</label><br />
-                        <NInput type="textarea" v-model="description" class="p-2" placeholder="Enter Description Here"
+                    <div>
+                        <label for="">A Short Summary/Description</label><br />
+                        <NInput type="textarea" v-model="description" class="p-2"
+                            placeholder="Enter a short description or a short summary of what the sermon is about."
                             required />
                     </div>
                     <div>
                         <label for="">Select Language:</label><br />
-                        <select v-model="language"
-                            class="p-2 rounded-md min-w-200px w-full !dark:bg-dark-300 dark:text-gray-200 outline-none"
-                            required>
-                            <option value="english">English</option>
-                            <option value="tagalog">Tagalog</option>
-                        </select>
+                        <NSelect v-model:value="language" :options="[
+                            {
+                                label: 'English',
+                                value: 'english',
+                            },
+                            {
+                                label: 'Tagalog',
+                                value: 'tagalog',
+                            },
+                            {
+                                label: 'Other',
+                                value: '',
+                            }
+                        ]" />
                     </div>
                     <div>
                         <label for="">Enter Source (Optional):</label><br />
@@ -255,22 +261,18 @@ function resetForm() {
                             class="p-2 rounded-md min-w-250px w-full !dark:bg-dark-300 dark:text-gray-200 outline-none"
                             placeholder="enter URL" type="text" />
                     </div>
-                    <div>
-                        <label class="select-none">
-                            <input v-model="isPublished" placeholder="enter URL" type="checkbox" />
-                            Is Published?
-                        </label>
-                    </div>
-                    <div v-if="selectedType == 'text'">
-                        <label for="">Set Content:</label><br />
-                        <div class="bg-white bg-opacity-10 p-2 rounded-md">
-                            <Editor v-model="content" overflow editorContentStyle="max-height: 300px;" />
-                        </div>
+                    <label class="select-none">
+                        <NCheckbox v-model="isPublished" placeholder="enter URL" type="checkbox" label="Is Published?"
+                            size="large" />
+                        <small>If Checked, this sermon will be visible to the public.</small>
+                    </label>
+                    <div class="bg-white bg-opacity-10 p-2 rounded-md">
+                        <Editor v-model="content" overflow editorContentStyle="max-height: 500px; min-height: 300px;" />
                     </div>
                     <div class="mb-10">
                         <NButton v-if="userStore.user" :disabled="loading" :loading="loading" type="primary"
                             @click="submitSermon()">
-                            Create
+                            Submit Sermon
                         </NButton>
                         <NButton v-else :disabled="loading" :loading="loading" type="primary"
                             @click="router.push('/profile')">

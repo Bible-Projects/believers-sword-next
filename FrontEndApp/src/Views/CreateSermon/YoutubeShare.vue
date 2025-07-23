@@ -168,17 +168,6 @@ async function submitSermon() {
     loading.value = false;
 }
 
-const selectTypeOptions = [
-    {
-        value: 'youtube',
-        label: 'Youtube',
-    },
-    {
-        value: 'text',
-        label: 'Text',
-    },
-];
-
 function resetForm() {
     sermonId.value = null;
     selectedType.value = 'youtube';

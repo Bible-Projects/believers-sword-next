@@ -85,6 +85,7 @@
     }
 
     blockquote {
+        margin-left: 20px;
         padding-left: 1rem;
         border-left: 2px solid rgba(#0d0d0d, 0.1);
     }
@@ -134,6 +135,10 @@
                 background-color: rgba(#ffffff, 0.2);
             }
         }
+    }
+
+    blockquote {
+        border-left: 2px solid rgba(#d8d8d8, 0.5);
     }
 }
 
