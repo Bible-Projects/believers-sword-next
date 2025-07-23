@@ -16,7 +16,7 @@ const menuStore = useMenuStore();
 const sermonId = ref(null);
 const selectedType = ref('youtube');
 const youtubeId = ref(null);
-const language = ref('english');
+const language = ref<string | null>('english');
 const source = ref(null);
 const title = ref(null);
 const scripture = ref(null);
@@ -25,7 +25,7 @@ const denomination = ref(null);
 const description = ref<string>('');
 const content = ref('');
 const loading = ref(false);
-const isPublished = ref(false);
+const isPublished = ref(true);
 
 const denominationOptions = [
     { label: 'Adventist' },
@@ -209,9 +209,11 @@ function resetForm() {
         <div class="w-full mx-auto h-[100%] overflow-auto">
             <div class="w-full max-w-700px mx-auto">
                 <div>
-                    <h2 class="font-thin text-size-23px mb-0 font-800">Share A Youtube Sermon</h2>
+                    <h2 class="font-thin text-size-23px mb-0 font-800">Share A Youtube Link</h2>
                     <div>
-                        Submit your sermon here so that other people can also watch or listen to your sermon.
+                        Submit a YouTube video link related to the Bible, sermons, motivation, or similar faith-based
+                        content.
+                        Videos that are not connected to biblical themes will be removed.
                     </div>
                 </div>
                 <div class="mt-10 flex flex-col gap-5">
@@ -220,11 +222,13 @@ function resetForm() {
                         <NInput v-model:value="youtubeId" placeholder="Enter Youtube Video ID ..." required type="text"
                             class="mb-2" size="large" />
                         <NAlert type="info">
-                            The video ID will be located in the URL of the video page, right after the v= URL parameter.
+                            The video ID will be located in the URL of the video page, right after the <b>v=</b> URL
+                            parameter.
                             In
-                            this case, the URL of the video is: https://www.youtube.com/watch?v=aqz-KE-bpKQ. Therefore,
+                            this case, the URL of the video is: <b>https://www.youtube.com/watch?v=aqz-KE-bpKQ</b>.
+                            Therefore,
                             the
-                            ID of the video is aqz-KE-bpKQ .
+                            <b>ID</b> of the video is <b>aqz-KE-bpKQ</b>.
                         </NAlert>
                     </div>
                     <div>
@@ -238,24 +242,22 @@ function resetForm() {
                                 label: 'Tagalog',
                                 value: 'tagalog',
                             },
+                            {
+                                label: 'Other',
+                                value: '',
+                            }
                         ]" size="large" />
                     </div>
                     <div>
                         <label for="">Enter Source (Optional):</label><br />
-                        <NInput v-model="source" placeholder="enter URL" type="text" size="large" />
-                    </div>
-                    <div>
-                        <label class="select-none">
-                            <input v-model="isPublished" placeholder="enter URL" type="checkbox" />
-                            Is Published?
-                        </label>
+                        <NInput v-model:value="source" placeholder="enter URL" type="text" size="large" />
                     </div>
                     <div class="mb-10">
-                        <NButton v-if="userStore.user" :disabled="loading" :loading="loading" type="primary"
-                            @click="submitSermon()">
-                            Create
+                        <NButton v-if="userStore.user" size="large" :disabled="loading" :loading="loading"
+                            type="primary" @click="submitSermon()">
+                            Submit Youtube Link
                         </NButton>
-                        <NButton v-else :disabled="loading" :loading="loading" type="primary"
+                        <NButton v-else :disabled="loading" size="large" :loading="loading" type="primary"
                             @click="router.push('/profile')">
                             Login First
                         </NButton>
