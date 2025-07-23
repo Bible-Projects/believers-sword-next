@@ -9,6 +9,7 @@ import BibleModules from './Modules/Bible/Bible';
 import AppUpdater from './AutoUpdate';
 import { setupPortableMode } from './util/portable';
 import { attachResizeListener } from './util/window';
+import { installExt } from './installDevTool';
 
 // Check if running in portable mode
 setupPortableMode();
@@ -72,6 +73,10 @@ async function createWindow() {
         mainWindow.setAlwaysOnTop(false);
         mainWindow.focus();
     }, 1000);
+
+    if (isDev) {
+        installExt();
+    }
 }
 
 // This method will be called when Electron has finished
