@@ -136,8 +136,7 @@ function handleBelieversSwordInfoDialog() {
                 </NButton>
                 <NTooltip trigger="hover" placement="bottom">
                     <template #trigger>
-                        <NButton size="small" disabled type="primary"
-                            @click="SelectContentToCreateModalRef?.toggleModal()">
+                        <NButton size="small" type="primary" @click="SelectContentToCreateModalRef?.toggleModal()">
                             <template #icon>
                                 <Icon icon="iconoir:submit-document" />
                             </template>
